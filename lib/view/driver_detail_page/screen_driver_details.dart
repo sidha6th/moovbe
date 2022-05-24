@@ -56,7 +56,6 @@ class DriverDetailPage extends StatelessWidget {
             ),
             child: CustomElevatedBtnWidget(
               onpressed: () {
-                print('object');
                 Navigator.push(
                   context,
                   MaterialPageRoute(

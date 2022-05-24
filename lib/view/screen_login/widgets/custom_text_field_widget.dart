@@ -2,14 +2,17 @@ import 'package:moovbe/extra/exports/exports.dart';
 
 class CustomTextFieldWidget extends StatelessWidget {
   const CustomTextFieldWidget({
+    this.controller,
     required this.hintText,
     Key? key,
   }) : super(key: key);
   final String hintText;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
         border: OutlineInputBorder(

@@ -18,12 +18,14 @@ class LoginScreen extends StatelessWidget {
               context.getSize().width * 0.1,
             ),
             child: Column(
-              children: const <Widget>[
+              children: <Widget>[
                 CustomTextFieldWidget(
+                  controller: LoginState.userNameController,
                   hintText: 'Enter Username',
                 ),
                 space10,
                 CustomTextFieldWidget(
+                  controller: LoginState.passWordController,
                   hintText: 'Enter Password',
                 ),
               ],
@@ -40,7 +42,22 @@ class LoginScreen extends StatelessWidget {
           ),
           child: CustomElevatedBtnWidget(
             btnText: 'Login',
-            onpressed: () {},
+            onpressed: () async {
+              final LoginModel? data = await LoginController.login(
+                LoginState.userNameController.text,
+                LoginState.passWordController.text,
+              );
+              (data != null && data.status == true)
+                  ? {
+                      Get.offAll(
+                        const HomeLayout(),
+                      ),
+                     // =============================LoginController.saveToken(data.access!),
+                    }
+                  : debugPrint(
+                      'login failed',
+                    );
+            },
             btnColor: red,
             btnTextColor: white,
           ),
