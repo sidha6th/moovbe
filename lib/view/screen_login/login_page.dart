@@ -43,16 +43,16 @@ class LoginScreen extends StatelessWidget {
           child: CustomElevatedBtnWidget(
             btnText: 'Login',
             onpressed: () async {
-              final LoginModel? data = await LoginController.login(
+              final data = await LoginController.login(
                 LoginState.userNameController.text,
                 LoginState.passWordController.text,
               );
               (data != null && data.status == true)
                   ? {
+                      LoginController.saveToken(data),
                       Get.offAll(
                         const HomeLayout(),
                       ),
-                     // =============================LoginController.saveToken(data.access!),
                     }
                   : debugPrint(
                       'login failed',

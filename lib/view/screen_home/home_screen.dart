@@ -1,5 +1,4 @@
 import 'package:moovbe/extra/exports/exports.dart';
-import 'package:moovbe/view/driver_detail_page/screen_driver_details.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({Key? key}) : super(key: key);
@@ -26,6 +25,7 @@ class HomeLayout extends StatelessWidget {
               );
             },
             cardTwoOnTap: () {
+              print('hello');
               Navigator.push(
                 context,
                 MaterialPageRoute(

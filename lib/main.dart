@@ -3,6 +3,7 @@ import 'package:moovbe/extra/exports/exports.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  //await LoginState.storage.erase();
   runApp(const MyApp());
 }
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

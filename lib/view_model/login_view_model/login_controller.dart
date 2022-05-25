@@ -4,10 +4,9 @@ const name = 'admin_user';
 const pass = '123admin789';
 
 class LoginController {
-  static final Dio dio = Dio();
   static Future<LoginModel?> login(String username, String password) async {
     try {
-      Response res = await dio.post(
+      Response res = await ApiServices.dio.post(
         ApiServices.baseUrl + ApiServices.login,
         data: {
           "username": name,
@@ -19,13 +18,16 @@ class LoginController {
       debugPrint(e.error);
       return null;
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint(
+        e.toString(),
+      );
       return null;
     }
   }
 
-  static saveToken(String token) async {
-    final GetStorage storage = GetStorage();
-    await storage.write('Token', token);
+  static saveToken(LoginModel data) async {
+    await LoginState.storage.write('Token', data.access);
+    await LoginState.storage.write('urlid', data.urlId);
+    await LoginState.storage.write('refreshId', data.refresh);
   }
 }

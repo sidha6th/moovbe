@@ -15,35 +15,56 @@ class DriverDetailPage extends StatelessWidget {
             isDetailedScreen: true,
           ),
         ),
-        body: ListView.separated(
-          itemCount: 10 + 1,
-          itemBuilder: (_, index) => index == 0
-              ? const Padding(
-                  padding: EdgeInsets.only(
-                    top: 10.0,
-                    left: 10.0,
-                  ),
-                  child: CustomTextWidget(
-                    text: '10 Driver Found',
-                    fontSize: 20,
-                  ),
-                )
-              : ListTile(
-                  leading: const Image(
-                    image: logoAsset,
-                    width: 30,
-                    height: 30,
-                  ),
-                  title: const CustomTextWidget(text: 'Drivername'),
-                  subtitle: const CustomTextWidget(text: 'Licn no: 845165454'),
-                  trailing: CustomElevatedBtnWidget(
-                    btnColor: pink,
-                    btnTextColor: white,
-                    btnText: ('Delete'),
-                    onpressed: () {},
-                  ),
-                ),
-          separatorBuilder: (_, index) => index != 0 ? space10 : emptybx,
+        body: FutureBuilder<List<DriverDetailModel>?>(
+          future: DriverDetailsController.getDriverList(),
+          builder: (context, AsyncSnapshot<List<DriverDetailModel>?> snapshot) {
+            return snapshot.data == null
+                ? emptybx
+                : snapshot.connectionState == ConnectionState.done
+                    ? ListView.separated(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (_, index) => index == 0
+                            ? const Padding(
+                                padding: EdgeInsets.only(
+                                  top: 10.0,
+                                  left: 10.0,
+                                ),
+                                child: CustomTextWidget(
+                                  text: '10 Driver Found',
+                                  fontSize: 20,
+                                ),
+                              )
+                            : ListTile(
+                                leading: const Image(
+                                  image: logoAsset,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                                title: CustomTextWidget(
+                                  text: snapshot.data![index - 1].name!,
+                                ),
+                                subtitle: CustomTextWidget(
+                                  text: snapshot.data![index - 1].licenseNo!,
+                                ),
+                                trailing: CustomElevatedBtnWidget(
+                                  btnColor: pink,
+                                  btnTextColor: white,
+                                  btnText: ('Delete'),
+                                  onpressed: () async {
+                                    await DriverDetailsController
+                                        .getDriverList();
+                                  },
+                                ),
+                              ),
+                        separatorBuilder: (_, index) =>
+                            index != 0 ? space10 : emptybx,
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(
+                          color: red,
+                        ),
+                      );
+          },
         ),
         bottomNavigationBar: PreferredSize(
           preferredSize: const Size(
