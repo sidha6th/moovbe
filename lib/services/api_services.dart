@@ -8,6 +8,8 @@ class ApiServices {
   static const String login = 'LoginApi';
   static const String busList = 'BusListApi/';
   static const String driverList = 'DriverApi/';
+  static const String driverManagement = 'DriverApi/';
+  static const String update='AssignDriverApi/';
   static final Dio dio = Dio();
 
   static refresh(String token) async {

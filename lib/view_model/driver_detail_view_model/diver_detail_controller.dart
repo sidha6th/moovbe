@@ -26,4 +26,39 @@ class DriverDetailsController {
       return null;
     }
   }
+
+  static deleteDriver(int id) async {
+    try {
+      final res = await ApiServices.dio.delete(
+        ApiServices.baseUrl + ApiServices.driverList + ApiServices.urlId!,
+        data: {"driver_id": id},
+        options: Options(
+          headers: {
+            "Authorization": "Bearer ${ApiServices.token}",
+          },
+        ),
+      );
+      debugPrint(res.statusCode.toString());
+    } on DioError catch (e) {
+      debugPrint('its error response == ${e.response?.statusCode}');
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  static Future<void> addDriver(DriverAddModel body) async {
+    try {
+      final res = await ApiServices.dio.post(
+        ApiServices.baseUrl + ApiServices.driverList + ApiServices.urlId!,
+        data: body.toJson(),
+      );
+      debugPrint(res.statusCode.toString());
+
+    } on DioError catch (e) {
+      debugPrint('its error response == ${e.response?.statusMessage}');
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+  
 }

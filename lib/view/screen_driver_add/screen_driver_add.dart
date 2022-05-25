@@ -18,12 +18,21 @@ class DriverAddScreen extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            children: const <Widget>[
+            children: <Widget>[
               CustomTextFieldWidget(
+                controller: DriverDetailsState.nameController,
                 hintText: 'Enter Name',
+                ontap: () {
+                  DriverDetailsState.nameController = TextEditingController();
+                },
               ),
               space10,
               CustomTextFieldWidget(
+                ontap: () {
+                  DriverDetailsState.licenseController =
+                      TextEditingController();
+                },
+                controller: DriverDetailsState.licenseController,
                 hintText: 'Enter License Number',
               ),
             ],
@@ -39,12 +48,19 @@ class DriverAddScreen extends StatelessWidget {
             child: CustomElevatedBtnWidget(
               btnText: 'Save',
               onpressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const HomeLayout(),
-                    ),
-                    (route) => false);
+                DriverDetailsController.addDriver(
+                  DriverAddModel(
+                    licenseNo: DriverDetailsState.licenseController!.text,
+                    name: DriverDetailsState.nameController!.text,
+                  ),
+                ).then(
+                  (value) => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const HomeLayout(),
+                      ),
+                      (route) => false),
+                );
               },
               btnTextColor: white,
               btnColor: pink,

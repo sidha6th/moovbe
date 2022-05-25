@@ -22,11 +22,17 @@ class LoginScreen extends StatelessWidget {
                 CustomTextFieldWidget(
                   controller: LoginState.userNameController,
                   hintText: 'Enter Username',
+                  ontap: () {
+                    LoginState.userNameController = TextEditingController();
+                  },
                 ),
                 space10,
                 CustomTextFieldWidget(
                   controller: LoginState.passWordController,
                   hintText: 'Enter Password',
+                  ontap: () {
+                    LoginState.passWordController = TextEditingController();
+                  },
                 ),
               ],
             ),
@@ -44,8 +50,8 @@ class LoginScreen extends StatelessWidget {
             btnText: 'Login',
             onpressed: () async {
               final data = await LoginController.login(
-                LoginState.userNameController.text,
-                LoginState.passWordController.text,
+                LoginState.userNameController!.text,
+                LoginState.passWordController!.text,
               );
               (data != null && data.status == true)
                   ? {

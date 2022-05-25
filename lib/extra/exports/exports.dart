@@ -9,6 +9,7 @@ export 'package:moovbe/extra/extentions/extentions.dart';
 export 'package:moovbe/extra/res/colors.dart';
 export 'package:moovbe/extra/res/const_widget.dart';
 export 'package:moovbe/model/bus_details_model/bus_detail_model.dart';
+export 'package:moovbe/model/driver_delete_model/driver_delete_model.dart';
 export 'package:moovbe/model/driver_detail_model/driver_detail_model.dart';
 export 'package:moovbe/model/login_model/login_model.dart';
 export 'package:moovbe/services/api_services.dart';

@@ -22,15 +22,15 @@ class DriverDetailPage extends StatelessWidget {
                 ? snapshot.data == null
                     ? emptybx
                     : ListView.separated(
-                        itemCount: snapshot.data!.length,
+                        itemCount: snapshot.data!.length + 1,
                         itemBuilder: (_, index) => index == 0
-                            ? const Padding(
-                                padding: EdgeInsets.only(
+                            ? Padding(
+                                padding: const EdgeInsets.only(
                                   top: 10.0,
                                   left: 10.0,
                                 ),
                                 child: CustomTextWidget(
-                                  text: '10 Driver Found',
+                                  text: '${snapshot.data!.length} Driver Found',
                                   fontSize: 20,
                                 ),
                               )
@@ -50,7 +50,16 @@ class DriverDetailPage extends StatelessWidget {
                                   btnTextColor: white,
                                   btnText: ('Delete'),
                                   onpressed: () async {
-                                    
+                                    // DriverDeleteModel(
+                                    //   driverId: snapshot.data![index].id!,
+                                    //   licenseNo:
+                                    //       snapshot.data![index].licenseNo!,
+                                    //   mobile: snapshot.data![index].mobile,
+                                    //   name: snapshot.data![index].name!,
+                                    // );
+                                    await DriverDetailsController.deleteDriver(
+                                      snapshot.data![index].id!,
+                                    );
                                   },
                                 ),
                               ),
