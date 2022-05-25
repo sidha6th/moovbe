@@ -17,15 +17,14 @@ class HomeLayout extends StatelessWidget {
         children: [
           ChoiceSectionWidget(
             cardOneOnTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const BusDetailedScreen(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (_) => const BusDetailedScreen(driverName: ),
+              //   ),
+              // );
             },
             cardTwoOnTap: () {
-              print('hello');
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -34,10 +33,8 @@ class HomeLayout extends StatelessWidget {
               );
             },
           ),
-          Flexible(
-            child: BusListView(
-              onPress: () {},
-            ),
+          const Flexible(
+            child: BusListView(),
           ),
         ],
       ),

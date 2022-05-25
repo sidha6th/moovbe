@@ -16,8 +16,7 @@ class ApiServices {
         '${baseUrl}api/token/refresh/',
       );
     } on DioError catch (e) {
-      print(e.response);
-      print(e.response?.statusCode);
+      debugPrint(e.response.toString());
     }
     //await LoginState.storage.erase();
     // LoginController.saveToken(LoginModel.fromJson(res.data));

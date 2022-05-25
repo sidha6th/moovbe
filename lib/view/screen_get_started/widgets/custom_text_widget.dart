@@ -5,6 +5,7 @@ class CustomTextWidget extends StatelessWidget {
     this.color = grey,
     this.weight = FontWeight.normal,
     this.fontSize,
+    this.overflow=TextOverflow.ellipsis,
     Key? key,
     required this.text,
   }) : super(key: key);
@@ -13,6 +14,7 @@ class CustomTextWidget extends StatelessWidget {
   final Color color;
   final FontWeight weight;
   final double? fontSize;
+  final TextOverflow overflow;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class CustomTextWidget extends StatelessWidget {
         fontWeight: weight,
         fontSize: fontSize,
       ),
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

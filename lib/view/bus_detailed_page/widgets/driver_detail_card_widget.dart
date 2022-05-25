@@ -2,8 +2,12 @@ import 'package:moovbe/extra/exports/exports.dart';
 
 class DriverDetailCardWidget extends StatelessWidget {
   const DriverDetailCardWidget({
+    required this.driverName,
+    this.licenseNo,
     Key? key,
   }) : super(key: key);
+  final String? driverName;
+  final String? licenseNo;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -25,15 +29,15 @@ class DriverDetailCardWidget extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: const <Widget>[
+                  children: <Widget>[
                     FittedBox(
                       child: CustomTextWidget(
-                        text: 'Driver name',
+                        text: driverName ?? 'Unknown',
                         weight: FontWeight.bold,
                       ),
                     ),
                     CustomTextWidget(
-                      text: 'Licence number',
+                      text: licenseNo ?? 'X' * 10,
                       fontSize: 15,
                     ),
                   ],

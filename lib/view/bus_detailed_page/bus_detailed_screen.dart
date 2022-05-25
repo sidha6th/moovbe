@@ -1,7 +1,15 @@
 import 'package:moovbe/extra/exports/exports.dart';
 
 class BusDetailedScreen extends StatelessWidget {
-  const BusDetailedScreen({Key? key}) : super(key: key);
+  const BusDetailedScreen({
+    required this.driverName,
+    this.licenseNo,
+    required this.type,
+    Key? key,
+  }) : super(key: key);
+  final String? driverName;
+  final String? licenseNo;
+  final String type;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -17,7 +25,10 @@ class BusDetailedScreen extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            const DriverDetailCardWidget(),
+            DriverDetailCardWidget(
+              driverName: driverName,
+              licenseNo: licenseNo,
+            ),
             space10,
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -39,20 +50,22 @@ class BusDetailedScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: <Widget>[
-                    const DriverSeatSectionWidget(),
+                    DriverSeatSectionWidget(type: type),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Expanded(
+                          flex: type == '1X3' ? 1 : 2,
                           child: SeatSectionWidget(
                             columnCount: 9,
-                            rowCount: 2,
+                            rowCount: type == '1X3' ? 1 : 2,
                           ),
                         ),
                         Expanded(
+                          flex: 2,
                           child: SeatSectionWidget(
                             columnCount: 9,
-                            rowCount: 2,
+                            rowCount: type == '1X3' ? 3 : 2,
                           ),
                         ),
                       ],

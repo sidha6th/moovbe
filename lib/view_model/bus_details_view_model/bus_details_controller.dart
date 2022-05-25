@@ -19,13 +19,11 @@ class BusDetailController {
         await ApiServices.refresh(ApiServices.refreshId!);
         await getBusList();
       }
-      //print(e.response?.statusCode);
       debugPrint(
         e.response.toString(),
       );
       return null;
     } catch (e) {
-      print(e);
       return null;
     }
   }

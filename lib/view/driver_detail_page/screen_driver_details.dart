@@ -17,11 +17,11 @@ class DriverDetailPage extends StatelessWidget {
         ),
         body: FutureBuilder<List<DriverDetailModel>?>(
           future: DriverDetailsController.getDriverList(),
-          builder: (context, AsyncSnapshot<List<DriverDetailModel>?> snapshot) {
-            return snapshot.data == null
-                ? emptybx
-                : snapshot.connectionState == ConnectionState.done
-                    ? ListView.separated(
+          builder: (_, AsyncSnapshot<List<DriverDetailModel>?> snapshot) {
+            return snapshot.connectionState == ConnectionState.done
+                ? snapshot.data == null
+                    ? emptybx
+                    : ListView.separated(
                         itemCount: snapshot.data!.length,
                         itemBuilder: (_, index) => index == 0
                             ? const Padding(
@@ -36,12 +36,11 @@ class DriverDetailPage extends StatelessWidget {
                               )
                             : ListTile(
                                 leading: const Image(
-                                  image: logoAsset,
-                                  width: 30,
-                                  height: 30,
+                                  image: driverDefaulimg,
                                 ),
                                 title: CustomTextWidget(
                                   text: snapshot.data![index - 1].name!,
+                                  fontSize: 20,
                                 ),
                                 subtitle: CustomTextWidget(
                                   text: snapshot.data![index - 1].licenseNo!,
@@ -51,19 +50,18 @@ class DriverDetailPage extends StatelessWidget {
                                   btnTextColor: white,
                                   btnText: ('Delete'),
                                   onpressed: () async {
-                                    await DriverDetailsController
-                                        .getDriverList();
+                                    
                                   },
                                 ),
                               ),
                         separatorBuilder: (_, index) =>
                             index != 0 ? space10 : emptybx,
                       )
-                    : const Center(
-                        child: CircularProgressIndicator(
-                          color: red,
-                        ),
-                      );
+                : const Center(
+                    child: CircularProgressIndicator(
+                      color: red,
+                    ),
+                  );
           },
         ),
         bottomNavigationBar: PreferredSize(
