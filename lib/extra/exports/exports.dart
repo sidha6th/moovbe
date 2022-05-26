@@ -22,7 +22,7 @@ export 'package:moovbe/view/screen_driver_add/screen_driver_add.dart';
 export 'package:moovbe/view/screen_get_started/get_started_screen.dart';
 export 'package:moovbe/view/screen_get_started/widgets/custom_elevated_btn_widget.dart';
 export 'package:moovbe/view/screen_get_started/widgets/custom_text_widget.dart';
-export 'package:moovbe/view/screen_home/bus_detail_view/bus_list_view.dart';
+export 'package:moovbe/view/screen_home/widgets/bus_list_view.dart';
 export 'package:moovbe/view/screen_home/driver_detail_view/driver_list_view.dart';
 export 'package:moovbe/view/screen_home/home_screen.dart';
 export 'package:moovbe/view/screen_home/widgets/choice_card_widget.dart';

@@ -7,24 +7,18 @@ class TopStackWelcomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: context.getSize().height * 0.4,
+    return Container(
+      color: black,
       width: double.infinity,
+      height: context.getSize().height * 0.4,
       child: Stack(
-        fit: StackFit.expand,
-        alignment: Alignment.bottomLeft,
         children: <Widget>[
-          Positioned.fill(
-            top: -180,
-            right: -180,
-            bottom: 85,
-            left: 130,
-            child: Transform.rotate(
-              angle: pi * 0.30,
-              child: Container(
-                color: red,
-                width: double.infinity,
-              ),
+          Transform.rotate(
+            angle: pi * 0.30,
+            child: Container(
+              width: context.getSize().height * 0.4,
+              height: double.infinity,
+              color: red,
             ),
           ),
           Positioned(
@@ -45,3 +39,16 @@ class TopStackWelcomeWidget extends StatelessWidget {
     );
   }
 }
+
+// class Sample extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     Paint paint = Paint()
+//       ..color = red
+//       ..style = PaintingStyle.fill;
+//       //canvas.drawPoints(PointMode.points, paint);
+//   }
+
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+// }

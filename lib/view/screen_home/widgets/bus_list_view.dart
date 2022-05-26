@@ -10,7 +10,11 @@ class BusListView extends StatelessWidget {
           if (snapShot.connectionState == ConnectionState.done) {
             return snapShot.data != null
                 ? snapShot.data!.isEmpty
-                    ? const SizedBox()
+                    ? const Center(
+                        child: CustomTextWidget(
+                          text: 'No Bus Found',
+                        ),
+                      )
                     : ListView.separated(
                         shrinkWrap: true,
                         itemCount: snapShot.data!.length,

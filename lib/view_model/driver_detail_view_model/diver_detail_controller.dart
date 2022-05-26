@@ -1,6 +1,6 @@
 import 'package:moovbe/extra/exports/exports.dart';
 
-class DriverDetailsController {
+class DriverDetailsController extends GetxController {
   static Future<List<DriverDetailModel>?> getDriverList() async {
     try {
       final res = await ApiServices.dio.get(
@@ -27,10 +27,10 @@ class DriverDetailsController {
     }
   }
 
-  static deleteDriver(int id) async {
+  static Future<bool> deleteDriver(int id) async {
     try {
       final res = await ApiServices.dio.delete(
-        ApiServices.baseUrl + ApiServices.driverList + ApiServices.urlId!,
+        '${ApiServices.baseUrl}${ApiServices.driverList}${ApiServices.urlId!}/',
         data: {"driver_id": id},
         options: Options(
           headers: {
@@ -38,27 +38,45 @@ class DriverDetailsController {
           },
         ),
       );
-      debugPrint(res.statusCode.toString());
+      return res.statusCode == 200 ? true : false;
     } on DioError catch (e) {
       debugPrint('its error response == ${e.response?.statusCode}');
+      return false;
     } catch (e) {
       debugPrint(e.toString());
+      return false;
     }
   }
 
-  static Future<void> addDriver(DriverAddModel body) async {
+  static Future<bool> addDriver(DriverAddModel body) async {
     try {
       final res = await ApiServices.dio.post(
-        ApiServices.baseUrl + ApiServices.driverList + ApiServices.urlId!,
+        '${ApiServices.baseUrl}${ApiServices.driverList}${ApiServices.urlId!}/',
         data: body.toJson(),
+        options: Options(
+          headers: {
+            "Authorization": "Bearer ${ApiServices.token}",
+          },
+        ),
       );
-      debugPrint(res.statusCode.toString());
-
+      return res.statusCode == 200 ? true : false;
     } on DioError catch (e) {
-      debugPrint('its error response == ${e.response?.statusMessage}');
+      debugPrint('its error response == ${e.response}');
+      return false;
     } catch (e) {
       debugPrint(e.toString());
+      return false;
     }
   }
-  
+
+  deleteFromTheLocalList(int index) {
+    DriverDetailsState.driverList.removeAt(index);
+    update();
+  }
+
+  @override
+  void dispose() {
+    DriverDetailsState.driverList.clear();
+    super.dispose();
+  }
 }

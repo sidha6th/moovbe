@@ -22,16 +22,9 @@ class DriverAddScreen extends StatelessWidget {
               CustomTextFieldWidget(
                 controller: DriverDetailsState.nameController,
                 hintText: 'Enter Name',
-                ontap: () {
-                  DriverDetailsState.nameController = TextEditingController();
-                },
               ),
               space10,
               CustomTextFieldWidget(
-                ontap: () {
-                  DriverDetailsState.licenseController =
-                      TextEditingController();
-                },
                 controller: DriverDetailsState.licenseController,
                 hintText: 'Enter License Number',
               ),
@@ -50,16 +43,19 @@ class DriverAddScreen extends StatelessWidget {
               onpressed: () {
                 DriverDetailsController.addDriver(
                   DriverAddModel(
-                    licenseNo: DriverDetailsState.licenseController!.text,
-                    name: DriverDetailsState.nameController!.text,
+                    licenseNo: DriverDetailsState.licenseController.text,
+                    name: DriverDetailsState.nameController.text,
                   ),
                 ).then(
-                  (value) => Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const HomeLayout(),
-                      ),
-                      (route) => false),
+                  (bool status) => status
+                      ? Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const HomeLayout(),
+                          ),
+                          (route) => false,
+                        )
+                      : false,
                 );
               },
               btnTextColor: white,

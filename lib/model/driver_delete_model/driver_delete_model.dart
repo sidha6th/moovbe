@@ -20,6 +20,5 @@ class DriverAddModel {
         'name': name,
         'mobile': mobile,
         'license_no': licenseNo,
-
       };
 }

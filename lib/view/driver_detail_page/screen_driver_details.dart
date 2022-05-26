@@ -4,24 +4,31 @@ class DriverDetailPage extends StatelessWidget {
   const DriverDetailPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size(
-            double.infinity,
-            50,
-          ),
-          child: CustomAppBar(
-            title: 'Driver List',
-            isDetailedScreen: true,
-          ),
+  Widget build(BuildContext context) {
+    Get.put(DriverDetailsController());
+    return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size(
+          double.infinity,
+          50,
         ),
-        body: FutureBuilder<List<DriverDetailModel>?>(
-          future: DriverDetailsController.getDriverList(),
-          builder: (_, AsyncSnapshot<List<DriverDetailModel>?> snapshot) {
-            return snapshot.connectionState == ConnectionState.done
-                ? snapshot.data == null
-                    ? emptybx
-                    : ListView.separated(
+        child: CustomAppBar(
+          title: 'Driver List',
+          isDetailedScreen: true,
+        ),
+      ),
+      body: FutureBuilder<List<DriverDetailModel>?>(
+        future: DriverDetailsController.getDriverList(),
+        builder: (_, AsyncSnapshot<List<DriverDetailModel>?> snapshot) {
+          return snapshot.connectionState == ConnectionState.done
+              ? snapshot.data == null
+                  ? const Center(
+                      child: CustomTextWidget(
+                        text: 'No driver Found',
+                      ),
+                    )
+                  : GetBuilder<DriverDetailsController>(builder: (controller) {
+                      return ListView.separated(
                         itemCount: snapshot.data!.length + 1,
                         itemBuilder: (_, index) => index == 0
                             ? Padding(
@@ -50,52 +57,52 @@ class DriverDetailPage extends StatelessWidget {
                                   btnTextColor: white,
                                   btnText: ('Delete'),
                                   onpressed: () async {
-                                    // DriverDeleteModel(
-                                    //   driverId: snapshot.data![index].id!,
-                                    //   licenseNo:
-                                    //       snapshot.data![index].licenseNo!,
-                                    //   mobile: snapshot.data![index].mobile,
-                                    //   name: snapshot.data![index].name!,
-                                    // );
-                                    await DriverDetailsController.deleteDriver(
-                                      snapshot.data![index].id!,
+                                    bool status = await DriverDetailsController
+                                        .deleteDriver(
+                                      snapshot.data![index - 1].id!,
                                     );
+                                    status == true
+                                        ? controller
+                                            .deleteFromTheLocalList(index - 1)
+                                        : false;
                                   },
                                 ),
                               ),
                         separatorBuilder: (_, index) =>
                             index != 0 ? space10 : emptybx,
-                      )
-                : const Center(
-                    child: CircularProgressIndicator(
-                      color: red,
-                    ),
-                  );
-          },
-        ),
-        bottomNavigationBar: PreferredSize(
-          preferredSize: const Size(
-            double.infinity,
-            60,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
-            ),
-            child: CustomElevatedBtnWidget(
-              onpressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const DriverAddScreen(),
+                      );
+                    })
+              : const Center(
+                  child: CircularProgressIndicator(
+                    color: red,
                   ),
                 );
-              },
-              btnText: 'Add Driver',
-              btnColor: pink,
-              btnTextColor: white,
-            ),
+        },
+      ),
+      bottomNavigationBar: PreferredSize(
+        preferredSize: const Size(
+          double.infinity,
+          60,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+          ),
+          child: CustomElevatedBtnWidget(
+            onpressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const DriverAddScreen(),
+                ),
+              );
+            },
+            btnText: 'Add Driver',
+            btnColor: pink,
+            btnTextColor: white,
           ),
         ),
-      );
+      ),
+    );
+  }
 }
