@@ -1,16 +1,13 @@
 import 'package:moovbe/extra/exports/exports.dart';
 
-const name = 'admin_user';
-const pass = '123admin789';
-
 class LoginController {
   static Future<LoginModel?> login(String username, String password) async {
     try {
       Response res = await ApiServices.dio.post(
         ApiServices.baseUrl + ApiServices.login,
         data: {
-          "username": name,
-          "password": pass,
+          "username": username,
+          "password": password,
         },
       );
       return LoginModel.fromJson(res.data);
@@ -25,9 +22,25 @@ class LoginController {
     }
   }
 
-  static saveToken(LoginModel data) async {
-    await LoginState.storage.write('Token', data.access);
-    await LoginState.storage.write('urlid', data.urlId);
-    await LoginState.storage.write('refreshId', data.refresh);
+  static Future<void> saveToken(
+      {LoginModel? logData, RefreshModel? refData, required bool isLog}) async {
+    ApiServices.token = isLog == true ? logData?.access : refData?.access;
+    ApiServices.refreshId = isLog == true ? logData?.refresh : refData?.refresh;
+    ApiServices.refreshId = isLog == true ? logData?.urlId : ApiServices.urlId!;
+    if (isLog == false) {
+      LoginState.storage.erase();
+    }
+    await LoginState.storage.write(
+      'Token',
+      isLog == true ? logData?.access : refData?.access,
+    );
+    await LoginState.storage.write(
+      'urlid',
+      isLog == true ? logData?.urlId : ApiServices.urlId,
+    );
+    await LoginState.storage.write(
+      'refreshId',
+      isLog == true ? logData?.refresh : refData?.refresh,
+    );
   }
 }

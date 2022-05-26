@@ -24,7 +24,6 @@ class LoginScreen extends StatelessWidget {
                 CustomTextFieldWidget(
                   controller: LoginState.passWordController,
                   hintText: 'Enter Password',
-                  
                 ),
               ],
             ),
@@ -40,21 +39,30 @@ class LoginScreen extends StatelessWidget {
           ),
           child: CustomElevatedBtnWidget(
             btnText: 'Login',
-            onpressed: () async {
-              final data = await LoginController.login(
+            onpressed: () {
+              LoginController.login(
                 LoginState.userNameController.text,
                 LoginState.passWordController.text,
-              );
-              (data != null && data.status == true)
-                  ? {
-                      LoginController.saveToken(data),
-                      Get.offAll(
-                        const HomeLayout(),
+              ).then(
+                (LoginModel? data) => (data != null && data.status == true)
+                    ? {
+                        LoginController.saveToken(logData: data, isLog: true)
+                            .then(
+                          (value) => Get.offAll(
+                            const HomeLayout(),
+                          ),
+                        ),
+                      }
+                    : Fluttertoast.showToast(
+                        msg: "Login Failed",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM_RIGHT,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: black,
+                        textColor: white,
+                        fontSize: 16.0,
                       ),
-                    }
-                  : debugPrint(
-                      'login failed',
-                    );
+              );
             },
             btnColor: red,
             btnTextColor: white,
