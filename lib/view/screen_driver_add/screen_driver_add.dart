@@ -1,17 +1,30 @@
 import 'package:moovbe/extra/exports/exports.dart';
 
 class DriverAddScreen extends StatelessWidget {
-  const DriverAddScreen({Key? key}) : super(key: key);
-
+  const DriverAddScreen({
+    this.licenseNo,
+    this.busId,
+    this.name,
+    this.title = 'Add Driver',
+    this.forAdd = true,
+    this.driverId,
+    Key? key,
+  }) : super(key: key);
+  final String? name;
+  final String? licenseNo;
+  final String title;
+  final bool forAdd;
+  final int? busId;
+  final int? driverId;
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size(
+        appBar: PreferredSize(
+          preferredSize: const Size(
             double.infinity,
             50,
           ),
           child: CustomAppBar(
-            title: 'Add Driver',
+            title: title,
             isDetailedScreen: true,
           ),
         ),
@@ -41,22 +54,27 @@ class DriverAddScreen extends StatelessWidget {
             child: CustomElevatedBtnWidget(
               btnText: 'Save',
               onpressed: () {
-                DriverDetailsController.addDriver(
-                  DriverAddModel(
-                    licenseNo: DriverDetailsState.licenseController.text,
-                    name: DriverDetailsState.nameController.text,
-                  ),
-                ).then(
-                  (bool status) => status
-                      ? Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const HomeLayout(),
-                          ),
-                          (route) => false,
-                        )
-                      : false,
-                );
+                forAdd
+                    ? DriverDetailsController.addDriver(
+                        DriverAddModel(
+                          licenseNo: DriverDetailsState.licenseController.text,
+                          name: DriverDetailsState.nameController.text,
+                        ),
+                      ).then(
+                        (bool status) => status
+                            ? Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const HomeLayout(),
+                                ),
+                                (route) => false,
+                              )
+                            : false,
+                      )
+                    : DriverDetailsController.editDriver(
+                        busId,
+                        driverId,
+                      );
               },
               btnTextColor: white,
               btnColor: pink,

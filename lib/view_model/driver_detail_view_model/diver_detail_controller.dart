@@ -69,6 +69,31 @@ class DriverDetailsController extends GetxController {
     }
   }
 
+  static editDriver(int? busId, int? driverId) async {
+    debugPrint('$busId $driverId');
+    try {
+      final res = await ApiServices.dio.patch(
+        '${ApiServices.baseUrl}${ApiServices.update}${ApiServices.urlId!}/',
+        data: {
+          "bus_id": '$busId',
+          "driver_id": '$driverId',
+        },
+        options: Options(
+          headers: {
+            "Authorization": "Bearer ${ApiServices.token}",
+          },
+        ),
+      );
+      debugPrint(res.requestOptions.data);
+    } on DioError catch (e) {
+      debugPrint(e.response?.data);
+    } catch (e) {
+      debugPrint(
+        e.toString(),
+      );
+    }
+  }
+
   deleteFromTheLocalList(int index) {
     DriverDetailsState.driverList.removeAt(index);
     update();

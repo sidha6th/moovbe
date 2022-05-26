@@ -13,7 +13,7 @@ export 'package:moovbe/model/driver_delete_model/driver_delete_model.dart';
 export 'package:moovbe/model/driver_detail_model/driver_detail_model.dart';
 export 'package:moovbe/model/login_model/login_model.dart';
 export 'package:moovbe/services/api_services.dart';
-export 'package:moovbe/view/bus_detailed_page/bus_detailed_screen.dart';
+export 'package:moovbe/view/bus_detailed_page/bus_manage_screen.dart';
 export 'package:moovbe/view/bus_detailed_page/widgets/driver_detail_card_widget.dart';
 export 'package:moovbe/view/bus_detailed_page/widgets/driver_seat_section.dart';
 export 'package:moovbe/view/bus_detailed_page/widgets/seat_section_widget.dart';

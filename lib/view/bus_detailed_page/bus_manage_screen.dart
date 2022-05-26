@@ -3,12 +3,16 @@ import 'package:moovbe/extra/exports/exports.dart';
 class BusDetailedScreen extends StatelessWidget {
   const BusDetailedScreen({
     required this.driverName,
-    this.licenseNo,
     required this.type,
+    this.licenseNo,
+    this.busId,
+    this.driverId,
     Key? key,
   }) : super(key: key);
   final String? driverName;
   final String? licenseNo;
+  final int? busId;
+  final int? driverId;
   final String type;
 
   @override
@@ -25,9 +29,22 @@ class BusDetailedScreen extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            DriverDetailCardWidget(
-              driverName: driverName,
-              licenseNo: licenseNo,
+            GestureDetector(
+              onTap: () {
+                Get.to(
+                  DriverAddScreen(
+                    title: 'Edit Driver',
+                    licenseNo: licenseNo,
+                    name: driverName,
+                    busId: busId,
+                    forAdd: false,
+                  ),
+                );
+              },
+              child: DriverDetailCardWidget(
+                driverName: 'driverName',
+                licenseNo: licenseNo,
+              ),
             ),
             space10,
             Padding(

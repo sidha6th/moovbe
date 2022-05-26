@@ -42,6 +42,7 @@ class BusListView extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (_) => BusDetailedScreen(
+                                    busId: snapShot.data![index].id,
                                     driverName: snapShot.data![index].driver,
                                     type: snapShot.data![index].type!,
                                   ),
