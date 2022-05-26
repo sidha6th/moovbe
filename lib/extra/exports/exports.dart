@@ -39,3 +39,4 @@ export 'package:moovbe/view_model/driver_detail_view_model/driver_detail_state.d
 export 'package:moovbe/view_model/login_view_model/login_controller.dart';
 export 'package:moovbe/view_model/login_view_model/login_state.dart';
 export 'package:moovbe/view_model/splash_view_model/splash_controller.dart';
+export 'package:moovbe/view/screen_login/widgets/welcome_canvas_widget.dart';

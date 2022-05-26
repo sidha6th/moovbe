@@ -11,44 +11,42 @@ class TopStackWelcomeWidget extends StatelessWidget {
       color: black,
       width: double.infinity,
       height: context.getSize().height * 0.4,
-      child: Stack(
-        children: <Widget>[
-          Transform.rotate(
-            angle: pi * 0.30,
-            child: Container(
-              width: context.getSize().height * 0.4,
-              height: double.infinity,
-              color: red,
+      child: CustomPaint(
+        painter: WelcomeCanvas(),
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 20,
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 10,
             child: Column(
-              children: const <Widget>[
-                CustomTextWidget(
-                  text: 'Welcome',
-                  weight: FontWeight.bold,
-                  color: white,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  width: context.getSize().width * 0.55,
+                  child: const FittedBox(
+                    child: CustomTextWidget(
+                      text: 'Welcome',
+                      color: white,
+                      weight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: context.getSize().width * 0.6,
+                  child: const FittedBox(
+                    child: CustomTextWidget(
+                      text: 'Manage your Bus and Drivers',
+                      color: white,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 }
-
-// class Sample extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     Paint paint = Paint()
-//       ..color = red
-//       ..style = PaintingStyle.fill;
-//       //canvas.drawPoints(PointMode.points, paint);
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-// }
