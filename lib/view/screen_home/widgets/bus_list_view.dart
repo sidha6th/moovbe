@@ -38,14 +38,11 @@ class BusListView extends StatelessWidget {
                             btnTextColor: white,
                             btnText: 'manage',
                             onpressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => BusDetailedScreen(
-                                    busId: snapShot.data![index].id,
-                                    driverName: snapShot.data![index].driver,
-                                    type: snapShot.data![index].type!,
-                                  ),
+                              Get.to(
+                                BusDetailedScreen(
+                                  busId: snapShot.data![index].id,
+                                  driverName: snapShot.data![index].driver,
+                                  type: snapShot.data![index].type!,
                                 ),
                               );
                             },

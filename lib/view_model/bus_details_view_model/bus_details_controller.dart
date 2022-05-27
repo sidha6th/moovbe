@@ -2,6 +2,7 @@ import 'package:moovbe/extra/exports/exports.dart';
 
 class BusDetailController {
   static Future<List<BusModel>?> getBusList() async {
+    print('insde funtion ${ApiServices.urlId}');
     try {
       final res = await ApiServices.dio.get(
         '${ApiServices.baseUrl}${ApiServices.busList}${ApiServices.urlId}',

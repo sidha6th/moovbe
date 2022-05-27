@@ -18,7 +18,11 @@ class GetStartedScreen extends StatelessWidget {
           width: double.infinity,
           child: CustomElevatedBtnWidget(
             btnText: 'Get Started',
-            onpressed: () {},
+            onpressed: () {
+              Get.off(
+                const LoginScreen(),
+              );
+            },
             btnTextColor: red,
           ),
         ),

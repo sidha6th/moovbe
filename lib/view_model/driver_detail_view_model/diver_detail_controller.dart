@@ -69,7 +69,7 @@ class DriverDetailsController extends GetxController {
     }
   }
 
-  static editDriver(int? busId, int? driverId) async {
+  static Future<bool> editDriver(int? busId, int? driverId) async {
     debugPrint('$busId $driverId');
     try {
       final res = await ApiServices.dio.patch(
@@ -85,12 +85,15 @@ class DriverDetailsController extends GetxController {
         ),
       );
       debugPrint(res.requestOptions.data);
+      return res.statusCode == 200 ? true : false;
     } on DioError catch (e) {
       debugPrint(e.response?.data);
+      return false;
     } catch (e) {
       debugPrint(
         e.toString(),
       );
+      return false;
     }
   }
 

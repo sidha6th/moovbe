@@ -26,7 +26,7 @@ class LoginController {
       {LoginModel? logData, RefreshModel? refData, required bool isLog}) async {
     ApiServices.token = isLog == true ? logData?.access : refData?.access;
     ApiServices.refreshId = isLog == true ? logData?.refresh : refData?.refresh;
-    ApiServices.refreshId = isLog == true ? logData?.urlId : ApiServices.urlId!;
+    ApiServices.urlId = isLog == true ? logData?.urlId : ApiServices.urlId!;
     if (isLog == false) {
       LoginState.storage.erase();
     }

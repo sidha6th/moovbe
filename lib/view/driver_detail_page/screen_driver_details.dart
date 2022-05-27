@@ -90,11 +90,8 @@ class DriverDetailPage extends StatelessWidget {
           ),
           child: CustomElevatedBtnWidget(
             onpressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const DriverAddScreen(),
-                ),
+              Get.to(
+                const DriverAddScreen(),
               );
             },
             btnText: 'Add Driver',

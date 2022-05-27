@@ -62,19 +62,27 @@ class DriverAddScreen extends StatelessWidget {
                         ),
                       ).then(
                         (bool status) => status
-                            ? Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const HomeLayout(),
-                                ),
-                                (route) => false,
-                              )
+                            ? {
+                                Get.offUntil(
+                                    MaterialPageRoute(
+                                      builder: (_) => const HomeLayout(),
+                                    ),
+                                    (route) => false),
+                                DriverDetailsState.licenseController.clear(),
+                                DriverDetailsState.nameController.clear(),
+                              }
                             : false,
                       )
                     : DriverDetailsController.editDriver(
                         busId,
                         driverId,
-                      );
+                      ).then((bool value) => value
+                        ? {
+                            Get.back(),
+                            DriverDetailsState.licenseController.clear(),
+                            DriverDetailsState.nameController.clear(),
+                          }
+                        : false);
               },
               btnTextColor: white,
               btnColor: pink,

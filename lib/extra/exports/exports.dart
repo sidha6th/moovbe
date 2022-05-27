@@ -2,9 +2,11 @@ export 'dart:math';
 
 export 'package:dio/dio.dart';
 export 'package:flutter/material.dart';
+export 'package:flutter/services.dart';
 export 'package:fluttertoast/fluttertoast.dart';
 export 'package:get/get.dart' hide FormData, Response, MultipartFile;
 export 'package:get_storage/get_storage.dart';
+export 'package:internet_connection_checker/internet_connection_checker.dart';
 export 'package:json_annotation/json_annotation.dart';
 export 'package:moovbe/extra/extentions/extentions.dart';
 export 'package:moovbe/extra/res/colors.dart';

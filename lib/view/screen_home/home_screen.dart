@@ -25,11 +25,8 @@ class HomeLayout extends StatelessWidget {
               // );
             },
             cardTwoOnTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const DriverDetailPage(),
-                ),
+              Get.to(
+                const DriverDetailPage(),
               );
             },
           ),

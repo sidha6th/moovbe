@@ -40,21 +40,36 @@ class LoginScreen extends StatelessWidget {
           child: CustomElevatedBtnWidget(
             btnText: 'Login',
             onpressed: () {
-              LoginController.login(
-                LoginState.userNameController.text,
-                LoginState.passWordController.text,
-              ).then(
-                (LoginModel? data) => (data != null && data.status == true)
-                    ? {
-                        LoginController.saveToken(logData: data, isLog: true)
-                            .then(
-                          (value) => Get.offAll(
-                            const HomeLayout(),
-                          ),
-                        ),
-                      }
+              final connectionStatus = InternetConnectionChecker();
+              connectionStatus.hasConnection.then(
+                (bool value) => value == true
+                    ? LoginController.login(
+                        LoginState.userNameController.text,
+                        LoginState.passWordController.text,
+                      ).then(
+                        (LoginModel? data) =>
+                            (data != null && data.status == true)
+                                ? {
+                                    LoginController.saveToken(
+                                            logData: data, isLog: true)
+                                        .then(
+                                      (value) => Get.offAll(
+                                        const HomeLayout(),
+                                      ),
+                                    ),
+                                  }
+                                : Fluttertoast.showToast(
+                                    msg: "Login Failed",
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.BOTTOM_RIGHT,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: black,
+                                    textColor: white,
+                                    fontSize: 16.0,
+                                  ),
+                      )
                     : Fluttertoast.showToast(
-                        msg: "Login Failed",
+                        msg: "Please check your Internet Connection",
                         toastLength: Toast.LENGTH_LONG,
                         gravity: ToastGravity.BOTTOM_RIGHT,
                         timeInSecForIosWeb: 1,
